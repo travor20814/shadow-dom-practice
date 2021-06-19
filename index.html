@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>element-details - web component using &lt;template&gt; and &lt;slot&gt;</title>
+    <style>
+      :root {
+        --primary-color: #6b7cdb;
+        --secondary-color: #9b9b9b;
+        --highlight-color: #ff0000;
+      }
+
+      .custom-text {
+        color: var(--secondary-color);
+      }
+
+      /* This style should not worked */
+      .summary {
+        font-size: 24px;
+        color: var(--highlight-color);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>element-details - web component using <code>&lt;template&gt;</code> and <code>&lt;slot&gt;</code></h1>
+
+    <!-- Template -->
+    <template id="element-details-template">
+      <style>
+        :host {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .summary {
+          font-size: 16px;
+          font-weight: 400;
+          letter-spacing: 1px;
+          color: var(--primary-color);
+        }
+
+        .more-details {
+          width: 100%;
+          padding: 0 0 0 20px;
+          display: grid;
+          gap: 6px;
+        }
+      </style>
+      <details>
+        <summary class="summary">
+          <slot name="description">NEED DESCRIPTION</slot>
+        </summary>
+        <div class="more-details">
+          <slot name="description-detail">
+            <p>None</p>
+          </slot>
+        </div>
+      </details>
+      <hr>
+    </template>
+
+    <!-- Example 1-->
+    <element-details>
+      <span slot="description">A placeholder inside a web
+        component that users can fill with their own markup,
+        with the effect of composing different DOM trees
+        together.</span>
+      <span slot="description-detail">
+        Much more details.....
+      </span>
+    </element-details>
+
+    <!-- Example 2-->
+    <element-details>
+      <span slot="description" class="custom-text">A mechanism for holding client-
+        side content that is not to be rendered when a page is
+        loaded but may subsequently be instantiated during
+        runtime using JavaScript.</span>
+    </element-details>
+
+    <script src="main.js"></script>
+  </body>
+</html>
